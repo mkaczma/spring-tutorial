@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 import com.acme.order.HashMapOrderRepository;
 import com.acme.order.OrderFactory;
+import com.acme.order.OrderRepository;
 import com.acme.order.delivery.BasicDeliveryTimeServiceImpl;
+import com.acme.order.delivery.DeliveryTimeService;
 import com.acme.order.delivery.TimeService;
 import com.acme.order.delivery.strategy.DeliveryTimeStrategy;
 import com.acme.order.delivery.strategy.SimpleDeliveryTimeStrategy;
@@ -26,7 +28,7 @@ public class AppConfig {
 	}
 
 	@Bean
-	HashMapOrderRepository orderRepository() {
+	OrderRepository orderRepository() {
 		return new HashMapOrderRepository();
 	}
 
@@ -36,7 +38,7 @@ public class AppConfig {
 	}
 
 	@Bean
-	BasicDeliveryTimeServiceImpl deliveryTimeService() {
+	DeliveryTimeService deliveryTimeService() {
 		BasicDeliveryTimeServiceImpl basicDeliveryTimeServiceImpl = new BasicDeliveryTimeServiceImpl();
 		basicDeliveryTimeServiceImpl.setStrategy(strategy);
 		return basicDeliveryTimeServiceImpl;
@@ -45,7 +47,7 @@ public class AppConfig {
 
 	@Bean
 	@Autowired
-	BasicDeliveryTimeServiceImpl deliveryTimeService(DeliveryTimeStrategy strategy) {
+	DeliveryTimeService deliveryTimeService(DeliveryTimeStrategy strategy) {
 		BasicDeliveryTimeServiceImpl basicDeliveryTimeServiceImpl = new BasicDeliveryTimeServiceImpl();
 		basicDeliveryTimeServiceImpl.setStrategy(strategy);
 		return basicDeliveryTimeServiceImpl;
@@ -63,7 +65,7 @@ public class AppConfig {
 	}
 
 	@Bean
-	SimpleDeliveryTimeStrategy strategy() {
+	DeliveryTimeStrategy strategy() {
 		return new SimpleDeliveryTimeStrategy();
 	}
 
