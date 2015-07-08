@@ -3,6 +3,7 @@ package com.acme.order.delivery;
 import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.acme.order.Customer;
 import com.acme.order.delivery.strategy.DeliveryTimeStrategy;
@@ -14,9 +15,12 @@ import lombok.Setter;
 
 public class BasicDeliveryTimeServiceImpl implements DeliveryTimeService {
 
+	@Autowired
 	@Setter
 	@Getter
 	private TimeService timeService;
+
+	@Autowired
 	@Setter
 	@Getter
 	private DeliveryTimeStrategy strategy;

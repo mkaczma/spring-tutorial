@@ -1,13 +1,19 @@
 package com.acme.order.notification;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Component
 public class SimpleMessageTemplateService implements MessageTemplateService {
 
+	@Autowired
 	private DeliveryTemplate deliveryTemplate;
+	@Autowired
 	private OrderCancelledTemplate cancelDeliveryTemplate;
 
 	public SimpleMessageTemplateService() {
