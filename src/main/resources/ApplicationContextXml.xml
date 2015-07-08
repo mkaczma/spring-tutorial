@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="pizzaOrderService" class="com.acme.order.pizza.PizzaOrderServiceImpl">
+		<property name="mailSender" ref="mailSender"></property>
+		<property name="orderRepository" ref="orderRepository"></property>
+		<property name="orderFactory" ref="orderFactory"></property>
+		<property name="deliveryTimeService" ref="deliveryTimeService"></property>
+		<property name="messageTemplate" ref="messageTemplate"></property>
+	</bean>
+
+	<bean id="mailSender" class="com.acme.order.notification.MailSender"></bean>
+	
+	<bean id="orderRepository" class="com.acme.order.HashMapOrderRepository"></bean>
+	
+	<bean id="orderFactory" class="com.acme.order.OrderFactory"></bean>
+	
+	<bean id="deliveryTimeService" class="com.acme.order.delivery.BasicDeliveryTimeServiceImpl">
+		<property name="timeService" ref="timeService"></property>
+		<property name="strategy" ref="strategy"></property>
+	</bean>
+	
+	<bean id="messageTemplate"
+		class="com.acme.order.notification.SimpleMessageTemplateService"></bean>
+		
+	<bean id="timeService" class="com.acme.order.delivery.TimeService"></bean>
+	
+	<bean id="strategy" class="com.acme.order.delivery.strategy.SimpleDeliveryTimeStrategy">
+		<property name="deliveryTemplate" ref="deliveryTemplate"></property>
+		<property name="cancelDeliveryTemplate" ref="cancelDeliveryTemplate"></property>
+	</bean>
+	
+	<bean id="deliveryTemplate" class="com.acme.order.notification.DeliveryTemplate"></bean>
+
+	<bean id="cancelDeliveryTemplate" class="com.acme.order.notification.OrderCancelledTemplate"></bean>
+
+</beans>

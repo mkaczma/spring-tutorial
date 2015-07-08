@@ -2,8 +2,6 @@ package com.acme.order.delivery;
 
 import java.util.Date;
 
-import lombok.Setter;
-
 import org.apache.commons.lang.time.DateUtils;
 
 import com.acme.order.Customer;
@@ -11,11 +9,16 @@ import com.acme.order.delivery.strategy.DeliveryTimeStrategy;
 import com.acme.order.delivery.strategy.PizzaTypeDeliveryTimeStrategy;
 import com.acme.order.pizza.PizzaType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class BasicDeliveryTimeServiceImpl implements DeliveryTimeService {
 
 	@Setter
+	@Getter
 	private TimeService timeService;
 	@Setter
+	@Getter
 	private DeliveryTimeStrategy strategy;
 
 	public BasicDeliveryTimeServiceImpl() {

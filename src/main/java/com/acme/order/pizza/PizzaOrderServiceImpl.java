@@ -3,42 +3,36 @@ package com.acme.order.pizza;
 import java.util.Date;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-
 import com.acme.order.Customer;
-import com.acme.order.HashMapOrderRepository;
 import com.acme.order.OrderFactory;
 import com.acme.order.OrderRepository;
 import com.acme.order.OrderStatus;
-import com.acme.order.delivery.BasicDeliveryTimeServiceImpl;
 import com.acme.order.delivery.DeliveryTimeService;
-import com.acme.order.delivery.TimeService;
 import com.acme.order.notification.DeliveryTemplate;
 import com.acme.order.notification.MailSender;
 import com.acme.order.notification.MessageTemplateService;
 import com.acme.order.notification.OrderCancelledTemplate;
-import com.acme.order.notification.SimpleMessageTemplateService;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Getter
+@Setter
+@NoArgsConstructor
 public class PizzaOrderServiceImpl implements PizzaOrderService {
 
-	private final MailSender mailSender;
+	private MailSender mailSender;
 
-	private final OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 
-	private final OrderFactory orderFactory;
+	private OrderFactory orderFactory;
 
-	private final DeliveryTimeService deliveryTimeService;
+	private DeliveryTimeService deliveryTimeService;
 
-	private final MessageTemplateService messageTemplate;
-
-	public PizzaOrderServiceImpl() {
-		this.orderFactory = new OrderFactory();
-		this.orderRepository = new HashMapOrderRepository();
-		this.deliveryTimeService = new BasicDeliveryTimeServiceImpl(new TimeService());
-		this.messageTemplate = new SimpleMessageTemplateService();
-		this.mailSender = new MailSender();
-	}
+	private MessageTemplateService messageTemplate;
 
 	public PizzaOrderServiceImpl(MailSender mailSender, OrderRepository orderRepository, OrderFactory orderFactory,
 			DeliveryTimeService deliveryTimeService, MessageTemplateService messageTemplate) {
