@@ -1,14 +1,14 @@
 package com.acme.order.notification;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Component
+@Service
 public class SimpleMessageTemplateService implements MessageTemplateService {
 
 	@Autowired
