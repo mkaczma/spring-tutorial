@@ -12,8 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SpringAnnotationBasedApplication {
 
+
 	public static void main(String[] args) {
 		log.info("Spring Annotation based application");
+//		log.info(args[0].toString());
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.register(AppConfig.class);

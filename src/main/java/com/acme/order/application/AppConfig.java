@@ -1,9 +1,10 @@
 package com.acme.order.application;
 
+import com.acme.order.delivery.strategy.PizzaTypeDeliveryTimeStrategy;
+import com.acme.order.pizza.PizzaType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 import com.acme.order.HashMapOrderRepository;
 import com.acme.order.OrderFactory;
@@ -17,6 +18,7 @@ import com.acme.order.notification.DeliveryTemplate;
 import com.acme.order.notification.MailSender;
 import com.acme.order.notification.OrderCancelledTemplate;
 
+@Slf4j
 @Configuration
 @ComponentScan(basePackages = { "com.acme.order.pizza", "com.acme.order.notification" })
 public class AppConfig {
@@ -40,6 +42,20 @@ public class AppConfig {
 	}
 
 	@Bean
+	DeliveryTimeStrategy simpleDeliveryTimeStrategy(){
+		log.info(SimpleDeliveryTimeStrategy.class.getSimpleName());
+		return new SimpleDeliveryTimeStrategy();
+	}
+
+	@Bean
+	@Profile("pizzaType")
+	@Primary
+	DeliveryTimeStrategy pizzaTypeDeliveryTimeStrategy(){
+		log.info(PizzaTypeDeliveryTimeStrategy.class.getSimpleName());
+		return new PizzaTypeDeliveryTimeStrategy();
+	}
+
+	@Bean
 	DeliveryTimeService deliveryTimeService() {
 		BasicDeliveryTimeServiceImpl basicDeliveryTimeServiceImpl = new BasicDeliveryTimeServiceImpl();
 		basicDeliveryTimeServiceImpl.setStrategy(strategy);
@@ -53,7 +69,6 @@ public class AppConfig {
 		BasicDeliveryTimeServiceImpl basicDeliveryTimeServiceImpl = new BasicDeliveryTimeServiceImpl();
 		basicDeliveryTimeServiceImpl.setStrategy(strategy);
 		return basicDeliveryTimeServiceImpl;
-
 	}
 
 	// @Bean
@@ -66,10 +81,6 @@ public class AppConfig {
 		return new TimeService();
 	}
 
-	@Bean
-	DeliveryTimeStrategy strategy() {
-		return new SimpleDeliveryTimeStrategy();
-	}
 
 	@Bean
 	DeliveryTemplate deliveryTemplate() {
