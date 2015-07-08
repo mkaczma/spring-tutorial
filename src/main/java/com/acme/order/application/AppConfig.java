@@ -2,6 +2,7 @@ package com.acme.order.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.acme.order.HashMapOrderRepository;
@@ -17,6 +18,7 @@ import com.acme.order.notification.MailSender;
 import com.acme.order.notification.OrderCancelledTemplate;
 
 @Configuration
+@ComponentScan(basePackages = { "com.acme.order.pizza", "com.acme.order.notification" })
 public class AppConfig {
 
 	@Autowired
